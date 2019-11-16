@@ -23,6 +23,13 @@
             </intent-filter>
         </activity>
         <activity android:name=".ui.earthquakedetails.EarthQuakeDetailsActivity" />
+
+        <provider
+            android:name="androidx.work.impl.WorkManagerInitializer"
+            android:authorities="${applicationId}.workmanager-init"
+            android:exported="false"
+            tools:node="remove" />
+
     </application>
 
 </manifest>

@@ -36,57 +36,6 @@ object TimeUtils {
         return SimpleDateFormat(format, locale)
     }
 
-    fun getTimestampToDate(unix: Long): String {
-        try {
-            //convert seconds to milliseconds
-            val date = Date(unix)
-            // format of the date
-            val jdf = getFormat(DATE_TIME_FORMAT_2, Locale.ENGLISH)
-            return jdf.format(date)
-        } catch (e: Exception) {
-            return ""
-        }
-
-    }
-
-    fun getUnixTimestampToDate(unix: Long): String {
-        try {
-            //convert seconds to milliseconds
-            val date = Date(unix * 1000L)
-            // format of the date
-            val jdf = getFormat(DATE_TIME_FORMAT_2, Locale.ENGLISH)
-            return jdf.format(date)
-        } catch (e: Exception) {
-            return ""
-        }
-
-    }
-
-    fun getUnixTimestampToDate(unix: String): String {
-        try {
-            //convert seconds to milliseconds
-            val date = parseDate(parseUnixDate(unix))
-            // format of the date
-            val jdf = getFormat(DATE_TIME_FORMAT_2, Locale.ENGLISH)
-            return jdf.format(date)
-        } catch (e: Exception) {
-            return ""
-        }
-
-    }
-
-    fun getUnixTimestampToDate(unix: String, format: String): String {
-        return try {
-            //convert seconds to milliseconds
-            val date = parseDate(parseUnixDate(unix))
-            // format of the date
-            val jdf = getFormat(format, Locale.ENGLISH)
-            jdf.format(date)
-        } catch (e: Exception) {
-            ""
-        }
-    }
-
     fun getUnixTimestampToDate(unix: String, format: String, skipUnixConversion: Boolean): String {
         return try {
             //convert seconds to milliseconds

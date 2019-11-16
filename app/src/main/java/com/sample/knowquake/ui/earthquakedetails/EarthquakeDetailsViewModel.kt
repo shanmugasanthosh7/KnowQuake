@@ -27,7 +27,7 @@ class EarthquakeDetailsViewModel @Inject constructor() : ViewModel() {
         get() = _type
 
     fun setEarthquakeDetails(features: EqFeatures) {
-        _title.value = features.properties.title.toUpperCase()
+        _title.value = features.properties.title
         _timeDepth.value = String.format(
             "%s | %s km depth",
             TimeUtils.getUnixTimestampToDate(
@@ -36,7 +36,7 @@ class EarthquakeDetailsViewModel @Inject constructor() : ViewModel() {
                 true
             ), features.geometry.coordinates[features.geometry.coordinates.size - 1].toDouble().roundToInt()
         )
-        _reviewStatus.value = features.properties.status
+        _reviewStatus.value = features.properties.status.toUpperCase()
         _magnitude.value =
             String.format("%s %s", features.properties.mag.toDouble().roundToInt(), features.properties.magType)
         _type.value = features.properties.type

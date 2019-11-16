@@ -3,6 +3,8 @@ package com.sample.knowquake.di
 import android.app.Application
 import android.content.Context
 import android.content.SharedPreferences
+import androidx.work.WorkManager
+import com.sample.knowquake.job.WorkerBindingModule
 import com.sample.knowquake.rx.AppSchedulerProvider
 import com.sample.knowquake.rx.SchedulerProvider
 import com.sample.knowquake.util.AppExecutors
@@ -12,7 +14,7 @@ import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton
 
-@Module(includes = [NetworkModule::class, ViewModelModule::class])
+@Module(includes = [NetworkModule::class, ViewModelModule::class, WorkerBindingModule::class])
 class AppModule {
 
     @Singleton
@@ -28,6 +30,11 @@ class AppModule {
     @Provides
     fun providePrefsEditor(sharedPreferences: SharedPreferences): SharedPreferences.Editor =
         sharedPreferences.edit()
+
+    @Provides
+    fun provideWorkerManger(app: Application): WorkManager {
+        return WorkManager.getInstance(app.applicationContext)
+    }
 
     @Singleton
     @Provides

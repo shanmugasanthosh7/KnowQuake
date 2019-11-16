@@ -23,6 +23,9 @@ import com.sample.knowquake.ui.OnItemClickListener
 import com.sample.knowquake.ui.earthquakedetails.EarthQuakeDetailsActivity
 import com.sample.knowquake.vo.DataStore
 import com.sample.knowquake.vo.EqFeatures
+import androidx.work.*
+import com.sample.knowquake.job.NewQuakeUpdateJob
+import java.util.concurrent.TimeUnit
 
 
 class EarthQuakeActivity : DaggerAppCompatActivity(), SwipeRefreshLayout.OnRefreshListener, OnItemClickListener {
@@ -36,6 +39,9 @@ class EarthQuakeActivity : DaggerAppCompatActivity(), SwipeRefreshLayout.OnRefre
 
     @Inject
     lateinit var dataStore: DataStore
+
+    @Inject
+    lateinit var workerManager: WorkManager
 
     private val viewModel by lazy {
         ViewModelProviders.of(this, viewModelFactory)
@@ -118,6 +124,16 @@ class EarthQuakeActivity : DaggerAppCompatActivity(), SwipeRefreshLayout.OnRefre
                 binding.swipeRefreshLayout.isRefreshing = false
             })
         }
+
+        val constraints = Constraints.Builder().setRequiredNetworkType(NetworkType.CONNECTED)
+            .build()
+        val orderSyncRequest = PeriodicWorkRequest.Builder(NewQuakeUpdateJob::class.java, 15, TimeUnit.MINUTES)
+            .setInputData(Data.Builder().putString("macId", "Testing").build())
+            .setConstraints(constraints)
+            .addTag("GET_NEW_EARTHQUAKE")
+            .build()
+        workerManager.enqueue(orderSyncRequest)
+
     }
 
     override fun onPostCreate(savedInstanceState: Bundle?) {

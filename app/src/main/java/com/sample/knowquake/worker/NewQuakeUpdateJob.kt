@@ -1,4 +1,4 @@
-package com.sample.knowquake.job
+package com.sample.knowquake.worker
 
 import android.app.NotificationManager
 import android.app.NotificationChannel

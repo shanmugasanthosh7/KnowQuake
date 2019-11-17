@@ -2,9 +2,8 @@ package com.sample.knowquake
 
 import androidx.work.Configuration
 import androidx.work.WorkManager
-import androidx.work.WorkerFactory
 import com.sample.knowquake.di.DaggerAppComponent
-import com.sample.knowquake.job.DaggerWorkerFactory
+import com.sample.knowquake.worker.DaggerWorkerFactory
 import dagger.android.AndroidInjector
 import dagger.android.support.DaggerApplication
 import javax.inject.Inject

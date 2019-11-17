@@ -1,4 +1,4 @@
-package com.sample.knowquake.job
+package com.sample.knowquake.worker
 
 import androidx.work.ListenableWorker
 import dagger.MapKey

@@ -4,7 +4,7 @@ import android.app.Application
 import android.content.Context
 import android.content.SharedPreferences
 import androidx.work.WorkManager
-import com.sample.knowquake.job.WorkerBindingModule
+import com.sample.knowquake.worker.WorkerBindingModule
 import com.sample.knowquake.rx.AppSchedulerProvider
 import com.sample.knowquake.rx.SchedulerProvider
 import com.sample.knowquake.util.AppExecutors

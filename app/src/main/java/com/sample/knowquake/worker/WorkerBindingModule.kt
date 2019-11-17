@@ -1,4 +1,4 @@
-package com.sample.knowquake.job
+package com.sample.knowquake.worker
 
 import dagger.Binds
 import dagger.Module

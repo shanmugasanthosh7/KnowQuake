@@ -24,7 +24,7 @@ import com.sample.knowquake.ui.earthquakedetails.EarthQuakeDetailsActivity
 import com.sample.knowquake.vo.DataStore
 import com.sample.knowquake.vo.EqFeatures
 import androidx.work.*
-import com.sample.knowquake.job.NewQuakeUpdateJob
+import com.sample.knowquake.worker.NewQuakeUpdateJob
 import java.util.concurrent.TimeUnit
 
 

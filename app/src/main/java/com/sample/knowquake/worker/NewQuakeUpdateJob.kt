@@ -51,11 +51,12 @@ class NewQuakeUpdateJob(
             manager.createNotificationChannel(channel)
         }
 
+        // It just quite simple notification builder and while tapping the notification it doesn't navigate to any activity.
         val builder = NotificationCompat.Builder(applicationContext, channelId)
             .setContentTitle(task)
             .setContentText(desc)
             .setSmallIcon(R.mipmap.ic_launcher)
-        manager.notify(1, builder.build())
+        manager.notify(1, builder.build()) // Notificatio just replace existing one if you want to show each notification as new increment the id.
     }
 
     class Factory @Inject constructor(

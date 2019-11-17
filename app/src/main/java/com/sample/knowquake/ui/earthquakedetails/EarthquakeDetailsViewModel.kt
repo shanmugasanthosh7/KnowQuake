@@ -3,10 +3,7 @@ package com.sample.knowquake.ui.earthquakedetails
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.sample.knowquake.util.TimeUtils
-import com.sample.knowquake.vo.EqFeatures
 import javax.inject.Inject
-import kotlin.math.roundToInt
 
 class EarthquakeDetailsViewModel @Inject constructor() : ViewModel() {
 
@@ -26,21 +23,12 @@ class EarthquakeDetailsViewModel @Inject constructor() : ViewModel() {
     val type: LiveData<String>
         get() = _type
 
-    fun setEarthquakeDetails(features: EqFeatures) {
-        _title.value = features.properties.title
-        _timeDepth.value = String.format(
-            "%s | %s km depth",
-            TimeUtils.getUnixTimestampToDate(
-                features.properties.time,
-                TimeUtils.DATE_TIME_FORMAT_2,
-                true
-            ), features.geometry.coordinates[features.geometry.coordinates.size - 1].toDouble().roundToInt()
-        )
-        _reviewStatus.value = features.properties.status.toUpperCase()
-        _magnitude.value =
-            String.format("%s %s", features.properties.mag.toDouble().roundToInt(), features.properties.magType)
-        _type.value = features.properties.type
-
+    fun setEarthquakeDetails(title: String, timeDepth: String, reviewStatus: String, magnitude: String, type: String) {
+        _title.value = title
+        _timeDepth.value = timeDepth
+        _reviewStatus.value = reviewStatus
+        _magnitude.value = magnitude
+        _type.value = type
     }
 
 }

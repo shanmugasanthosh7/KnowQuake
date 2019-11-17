@@ -11,6 +11,8 @@ import dagger.android.support.DaggerAppCompatActivity
 import javax.inject.Inject
 import androidx.core.app.NavUtils
 import android.view.MenuItem
+import com.sample.knowquake.util.TimeUtils
+import kotlin.math.roundToInt
 
 
 class EarthQuakeDetailsActivity : DaggerAppCompatActivity() {
@@ -38,7 +40,21 @@ class EarthQuakeDetailsActivity : DaggerAppCompatActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setDisplayShowTitleEnabled(true)
         supportActionBar?.title = "EarthQuakeDetails"
-        viewModel.setEarthquakeDetails(dataStore.eqFeatures!!)
+        val features = dataStore.eqFeatures!!
+        viewModel.setEarthquakeDetails(
+            features.properties.title,
+            String.format(
+                "%s | %s km depth",
+                TimeUtils.getUnixTimestampToDate(
+                    features.properties.time,
+                    TimeUtils.DATE_TIME_FORMAT_2,
+                    true
+                ), features.geometry.coordinates[features.geometry.coordinates.size - 1].toDouble().roundToInt()
+            ),
+            features.properties.status.toUpperCase(),
+            String.format("%s %s", features.properties.mag.toDouble().roundToInt(), features.properties.magType),
+            features.properties.type
+        )
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

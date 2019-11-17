@@ -25,6 +25,9 @@ import com.sample.knowquake.vo.DataStore
 import com.sample.knowquake.vo.EqFeatures
 import androidx.work.*
 import com.sample.knowquake.worker.NewQuakeUpdateJob
+import retrofit2.HttpException
+import retrofit2.http.HTTP
+import java.net.HttpURLConnection
 import java.util.concurrent.TimeUnit
 
 
@@ -102,6 +105,23 @@ class EarthQuakeActivity : DaggerAppCompatActivity(), SwipeRefreshLayout.OnRefre
                     is NoNetworkException -> {
                         Snackbar.make(binding.root, "No Network. Please check your connection", Snackbar.LENGTH_LONG)
                             .show()
+                    }
+                    is HttpException -> { // Handle Http exception here
+                        when (it.response().code()) {
+                            HttpURLConnection.HTTP_BAD_REQUEST -> {
+                                // Show UI Here
+                            }
+                            HttpURLConnection.HTTP_UNAUTHORIZED -> {
+                                // Show UI Here
+                            }
+                            HttpURLConnection.HTTP_INTERNAL_ERROR -> {
+                                // Show UI Here
+                                Snackbar.make(binding.root, "Something went wrong.", Snackbar.LENGTH_LONG)
+                                    .show()
+                            }
+
+                            // More we can show here. We handle everything in one place will get update soon.
+                        }
                     }
                 }
             })

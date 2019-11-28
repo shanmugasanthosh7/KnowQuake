@@ -1,6 +1,7 @@
 package com.sample.knowquake.network
 
 import android.content.Context
+import com.aptus.droidils.utils.isNetworkConneted
 
 import java.io.IOException
 import okhttp3.Interceptor
@@ -15,7 +16,7 @@ constructor(private val context: Context) : Interceptor {
     @Throws(IOException::class)
     override fun intercept(chain: Interceptor.Chain): Response {
         val request = chain.request()
-        if (!NetworkManager.isConnected(context)) throw NoNetworkException()
+        if (!context.isNetworkConneted()) throw NoNetworkException()
         return chain.proceed(request)
     }
 }

@@ -15,14 +15,28 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".ui.earthquakes.EarthQuakeActivity">
+
+        <activity
+            android:name=".ui.SplashActivity"
+            android:theme="@style/splashScreenTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity android:name=".ui.earthquakes.EarthQuakeActivity" />
+
         <activity android:name=".ui.earthquakedetails.EarthQuakeDetailsActivity" />
+
+        <receiver
+            android:name=".util.ConnectivityReceiver"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
+            </intent-filter>
+        </receiver>
 
         <provider
             android:name="androidx.work.impl.WorkManagerInitializer"

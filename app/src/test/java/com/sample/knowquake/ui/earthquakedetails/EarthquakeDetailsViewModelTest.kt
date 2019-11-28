@@ -1,6 +1,7 @@
 package com.sample.knowquake.ui.earthquakedetails
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
+import com.sample.knowquake.provider.ResourceProvider
 import org.junit.After
 import org.junit.Assert.*
 import org.junit.Before
@@ -9,6 +10,7 @@ import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.junit.MockitoJUnitRunner
 import com.sample.knowquake.util.LiveDataTestUtil
+import org.mockito.Mock
 
 
 @RunWith(MockitoJUnitRunner::class)
@@ -19,9 +21,12 @@ class EarthquakeDetailsViewModelTest {
 
     private lateinit var earthquakeDetailsViewModel: EarthquakeDetailsViewModel
 
+    @Mock
+    lateinit var resourceProvider: ResourceProvider
+
     @Before
     fun setUp() { // This method is call before each test run.
-        earthquakeDetailsViewModel = EarthquakeDetailsViewModel()
+        earthquakeDetailsViewModel = EarthquakeDetailsViewModel(resourceProvider)
     }
 
     @After

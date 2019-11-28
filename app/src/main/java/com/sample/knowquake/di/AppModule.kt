@@ -4,6 +4,9 @@ import android.app.Application
 import android.content.Context
 import android.content.SharedPreferences
 import androidx.work.WorkManager
+import com.sample.knowquake.QuakeApplication
+import com.sample.knowquake.provider.ResourceProvider
+import com.sample.knowquake.provider.ResourceProviderImpl
 import com.sample.knowquake.worker.WorkerBindingModule
 import com.sample.knowquake.rx.AppSchedulerProvider
 import com.sample.knowquake.rx.SchedulerProvider
@@ -16,6 +19,10 @@ import javax.inject.Singleton
 
 @Module(includes = [NetworkModule::class, ViewModelModule::class, WorkerBindingModule::class])
 class AppModule {
+
+    @Singleton
+    @Provides
+    fun provideApplication(application: QuakeApplication): QuakeApplication = application
 
     @Singleton
     @Provides
@@ -39,6 +46,10 @@ class AppModule {
     @Singleton
     @Provides
     fun provideSchedulerProvider(): SchedulerProvider = AppSchedulerProvider()
+
+    @Singleton
+    @Provides
+    fun provideResourceProvider(context: Context): ResourceProvider = ResourceProviderImpl(context)
 
     @Singleton
     @Provides

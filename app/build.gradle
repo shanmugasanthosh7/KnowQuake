@@ -117,6 +117,9 @@ dependencies {
     // optional - RxJava2 support
     implementation "androidx.work:work-rxjava2:$work_version"
 
+    // Utils
+    implementation 'com.aptus:droidils:1.1.0'
+
     // Instrumentation tests
     androidTestImplementation "androidx.test.espresso:espresso-core:${rootProject.ext.espressoVersion}"
     androidTestImplementation "androidx.test.espresso:espresso-contrib:${rootProject.ext.espressoVersion}"

@@ -18,7 +18,7 @@ buildscript {
 ext {
     compileSdkVersion = 29
 
-    minSdkVersion = 19
+    minSdkVersion = 21
 
     targetSdkVersion = 29
 
@@ -27,7 +27,7 @@ ext {
     versionName = "1.0.0"
 
     //SupportLib
-    recyclerViewSupportLibVersion = '1.0.0'
+    recyclerViewSupportLibVersion = '1.1.0'
 
     cardSupportLibVersion = '1.0.0'
 

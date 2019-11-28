@@ -10,4 +10,11 @@
         <item name="windowNoTitle">true</item>
     </style>
 
+    <style name="splashScreenTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorPrimary">@color/ic_launcher_background</item>
+        <item name="colorPrimaryDark">@color/ic_launcher_background</item>
+        <item name="colorAccent">@color/ic_launcher_background</item>
+        <item name="android:windowBackground">@drawable/splash_screen</item>
+    </style>
+
 </resources>

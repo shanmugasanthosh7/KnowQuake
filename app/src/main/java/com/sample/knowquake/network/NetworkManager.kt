@@ -1,24 +1,40 @@
 package com.sample.knowquake.network
 
-
-import android.content.Context
-import android.net.ConnectivityManager
-import android.net.NetworkInfo
+import android.util.Log
+import java.net.InetAddress
+import java.net.UnknownHostException
+import java.util.concurrent.*
 
 object NetworkManager {
 
-    /**
-     * This function is used to check for network connectivity. if network available it will return true.
-     * else it will return false.
-     */
-    fun isConnected(context: Context): Boolean {
-        val cm = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
-        return try {
-            val activeNetwork: NetworkInfo? = cm.activeNetworkInfo
-            activeNetwork?.isConnectedOrConnecting == true
-        } catch (e: Exception) {
-            false
-        }
+    fun internetConnectionAvailable(i: Int): Boolean {
+        var inetAddress: InetAddress?
+        try {
+            val submit = Executors.newSingleThreadExecutor().submit(Callable<InetAddress> {
+                try {
+                    InetAddress.getByName("google.com")
+                } catch (unused: UnknownHostException) {
+                    null
+                }
+            })
+            inetAddress = submit.get(i.toLong(), TimeUnit.MILLISECONDS) as InetAddress
+            try {
+                submit.cancel(true)
+            } catch (unused: InterruptedException) {
+            } catch (unused: ExecutionException) {
+            } catch (unused: TimeoutException) {
+            }
 
+        } catch (unused2: InterruptedException) {
+            inetAddress = null
+        } catch (unused2: ExecutionException) {
+            inetAddress = null
+        } catch (unused2: TimeoutException) {
+            inetAddress = null
+        }
+        if (inetAddress != null) {
+            Log.e("net", inetAddress.hostAddress)
+        }
+        return !(inetAddress == null || inetAddress.hostAddress == "10.0.0.1")
     }
 }

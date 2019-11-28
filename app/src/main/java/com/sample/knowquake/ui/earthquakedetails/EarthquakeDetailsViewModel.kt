@@ -3,9 +3,12 @@ package com.sample.knowquake.ui.earthquakedetails
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.sample.knowquake.provider.ResourceProvider
+import com.sample.knowquake.rx.SchedulerProvider
 import javax.inject.Inject
 
-class EarthquakeDetailsViewModel @Inject constructor() : ViewModel() {
+class EarthquakeDetailsViewModel
+@Inject constructor(private val resourceProvider: ResourceProvider) : ViewModel() {
 
     private val _title = MutableLiveData<String>()
     val title: LiveData<String>

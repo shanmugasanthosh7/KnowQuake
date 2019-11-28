@@ -12,6 +12,7 @@ import javax.inject.Inject
 import androidx.core.app.NavUtils
 import android.view.MenuItem
 import com.sample.knowquake.util.TimeUtils
+import com.sample.knowquake.util.provideViewModel
 import kotlin.math.roundToInt
 
 
@@ -23,10 +24,7 @@ class EarthQuakeDetailsActivity : DaggerAppCompatActivity() {
     @Inject
     lateinit var dataStore: DataStore
 
-    private val viewModel by lazy {
-        ViewModelProviders.of(this, viewModelFactory)
-            .get(EarthquakeDetailsViewModel::class.java)
-    }
+    private val viewModel by lazy { provideViewModel<EarthquakeDetailsViewModel>(viewModelFactory) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

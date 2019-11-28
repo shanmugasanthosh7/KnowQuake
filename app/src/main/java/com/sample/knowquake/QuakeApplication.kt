@@ -7,6 +7,9 @@ import com.sample.knowquake.worker.DaggerWorkerFactory
 import dagger.android.AndroidInjector
 import dagger.android.support.DaggerApplication
 import javax.inject.Inject
+import com.sample.knowquake.util.ConnectivityReceiver
+import com.sample.knowquake.util.ConnectivityReceiver.ConnectivityReceiverListener
+
 
 class QuakeApplication : DaggerApplication() {
 
@@ -29,4 +32,7 @@ class QuakeApplication : DaggerApplication() {
         )
     }
 
+    fun setConnectivityListener(connectivityReceiverListener: ConnectivityReceiverListener) {
+        ConnectivityReceiver.connectivityReceiverListener = connectivityReceiverListener
+    }
 }

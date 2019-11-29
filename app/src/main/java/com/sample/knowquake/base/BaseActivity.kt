@@ -10,7 +10,7 @@ import dagger.android.support.DaggerAppCompatActivity
 abstract class BaseActivity : DaggerAppCompatActivity() {
 
     companion object {
-        private const val TAG = "EarthQuakeActivity"
+        private const val TAG = "BaseActivity"
     }
 
     abstract fun onAvailable(network: Network)

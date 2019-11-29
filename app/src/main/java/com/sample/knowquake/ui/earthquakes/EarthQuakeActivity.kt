@@ -6,8 +6,6 @@ import android.view.View
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.ViewModelProviders
-import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
@@ -15,7 +13,6 @@ import com.google.android.material.snackbar.Snackbar
 import com.sample.knowquake.R
 import com.sample.knowquake.databinding.ActivityEarthquakeBinding
 import com.sample.knowquake.network.NoNetworkException
-import dagger.android.support.DaggerAppCompatActivity
 import javax.inject.Inject
 import com.sample.knowquake.customs.EndlessRecyclerOnScrollListener
 import com.sample.knowquake.result.EventObserver
@@ -29,45 +26,17 @@ import retrofit2.HttpException
 import java.net.HttpURLConnection
 import java.util.concurrent.TimeUnit
 import android.app.AlertDialog
-import android.net.ConnectivityManager
 import android.net.Network
-import android.net.NetworkRequest
-import android.util.Log
-import com.aptus.droidils.utils.getConnectivityManager
 import com.aptus.droidils.utils.gone
 import com.aptus.droidils.utils.visible
+import com.sample.knowquake.base.BaseActivity
 import com.sample.knowquake.util.provideViewModel
 
-class EarthQuakeActivity : DaggerAppCompatActivity(), SwipeRefreshLayout.OnRefreshListener, OnItemClickListener {
+class EarthQuakeActivity : BaseActivity(), SwipeRefreshLayout.OnRefreshListener, OnItemClickListener {
 
     companion object {
         private const val LIMIT = 20
-        private const val TAG = "EarthQuakeActivity"
-    }
-
-    /**
-     * We can use this replacement of network connectivity broadcast receiver.
-     */
-    private val networkCallback = object : ConnectivityManager.NetworkCallback() {
-        override fun onAvailable(network: Network) {
-            super.onAvailable(network)
-            Log.d(TAG, "Connection Available")
-            if (isNetworkLost) {
-                runOnUiThread { refreshOnNoNetworkConnection() }
-                isNetworkLost = false
-            }// Auto refresh after getting network
-        }
-
-        override fun onUnavailable() {
-            super.onUnavailable()
-            Log.d(TAG, "Connection Unavailable")
-        }
-
-        override fun onLost(network: Network) {
-            super.onLost(network)
-            Log.d(TAG, "Connection lost")
-        }
-
+        private const val WORKER_TAG = "GET_NEW_EARTHQUAKE"
     }
 
     @Inject
@@ -187,10 +156,10 @@ class EarthQuakeActivity : DaggerAppCompatActivity(), SwipeRefreshLayout.OnRefre
         val orderSyncRequest = PeriodicWorkRequest.Builder(NewQuakeUpdateJob::class.java, 15, TimeUnit.MINUTES)
             .setInputData(Data.Builder().putString("macId", "Testing").build())
             .setConstraints(constraints)
-            .addTag("GET_NEW_EARTHQUAKE")
+            .addTag(WORKER_TAG)
             .build()
+        workerManager.cancelAllWorkByTag(WORKER_TAG)
         workerManager.enqueue(orderSyncRequest)
-
     }
 
     override fun onPostCreate(savedInstanceState: Bundle?) {
@@ -198,16 +167,17 @@ class EarthQuakeActivity : DaggerAppCompatActivity(), SwipeRefreshLayout.OnRefre
         viewModel.earthQuakeFeatures(LIMIT, offset, false)
     }
 
-    override fun onResume() {
-        super.onResume()
-        val request = NetworkRequest.Builder()
-            .build()
-        getConnectivityManager().registerNetworkCallback(request, networkCallback)
+    override fun onAvailable(network: Network) {
+        if (isNetworkLost) {
+            runOnUiThread { refreshOnNoNetworkConnection() }
+            isNetworkLost = false
+        }// Auto refresh after getting network
     }
 
-    override fun onPause() {
-        super.onPause()
-        getConnectivityManager().unregisterNetworkCallback(networkCallback)
+    override fun onUnavailable() {
+    }
+
+    override fun onLost(network: Network) {
     }
 
     override fun onBackPressed() {

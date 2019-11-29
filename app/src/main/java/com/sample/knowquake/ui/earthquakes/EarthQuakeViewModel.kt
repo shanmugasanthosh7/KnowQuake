@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.sample.knowquake.api.ApiService
+import com.sample.knowquake.provider.ResourceProvider
 import com.sample.knowquake.result.Event
 import com.sample.knowquake.rx.SchedulerProvider
 import com.sample.knowquake.vo.EarthQuake
@@ -11,7 +12,11 @@ import io.reactivex.disposables.CompositeDisposable
 import javax.inject.Inject
 
 class EarthQuakeViewModel
-@Inject constructor(private val apiService: ApiService, private val scheduler: SchedulerProvider) : ViewModel() {
+@Inject constructor(
+    private val apiService: ApiService,
+    private val scheduler: SchedulerProvider,
+    private val resourceProvider: ResourceProvider
+) : ViewModel() {
 
     private val disposable = CompositeDisposable()
 

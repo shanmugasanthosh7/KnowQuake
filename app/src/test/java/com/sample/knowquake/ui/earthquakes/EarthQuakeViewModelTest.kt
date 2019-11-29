@@ -2,6 +2,7 @@ package com.sample.knowquake.ui.earthquakes
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.sample.knowquake.api.ApiService
+import com.sample.knowquake.provider.ResourceProvider
 import com.sample.knowquake.rx.TestSchedulerProvider
 import com.sample.knowquake.vo.EarthQuake
 import io.reactivex.schedulers.TestScheduler
@@ -36,10 +37,13 @@ class EarthQuakeViewModelTest {
     @Mock
     lateinit var response: EarthQuake
 
+    @Mock
+    lateinit var resourceProvider: ResourceProvider
+
     @Before
     fun setUp() { // This method is call before each test run.
         scheduler = TestScheduler()
-        earthQuakeViewModel = EarthQuakeViewModel(apiService, TestSchedulerProvider(scheduler))
+        earthQuakeViewModel = EarthQuakeViewModel(apiService, TestSchedulerProvider(scheduler), resourceProvider)
     }
 
     @After

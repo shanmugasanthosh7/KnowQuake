@@ -138,9 +138,9 @@ class EarthQuakeActivity : BaseActivity(), SwipeRefreshLayout.OnRefreshListener,
                     val newList = it.features
                     lastUpdatedList?.addAll(newList)
                     if (lastUpdatedList?.size!! > 0) {
-                        lastUpdatedList?.remove(EarthQuakeAdapter.PROGRESSLOADER)
+                        lastUpdatedList?.remove(EarthQuakeAdapter.ProgressLoader)
                     }
-                    lastUpdatedList?.add(EarthQuakeAdapter.PROGRESSLOADER)
+                    lastUpdatedList?.add(EarthQuakeAdapter.ProgressLoader)
                     currentList = ArrayList(lastUpdatedList!!)
                     earthQuakeAdapter.setData(currentList!!)
                     binding.eqRecyclerView.visibility = View.VISIBLE
@@ -203,7 +203,7 @@ class EarthQuakeActivity : BaseActivity(), SwipeRefreshLayout.OnRefreshListener,
     private fun refresh(uiVisibility: () -> Unit) {
         lastUpdatedList?.clear()
         currentList.let { it?.clear() }
-        earthQuakeAdapter.setData(currentList!!)
+        currentList?.let { earthQuakeAdapter.setData(it) }
         offset = 1
         resetEndLessScroll()
         uiVisibility()
@@ -231,7 +231,7 @@ class EarthQuakeActivity : BaseActivity(), SwipeRefreshLayout.OnRefreshListener,
     }
 
     private fun removeProgressItem(lists: ArrayList<Any>) {
-        if (lists.size > 0 && lists.contains(EarthQuakeAdapter.PROGRESSLOADER)) {
+        if (lists.size > 0 && lists.contains(EarthQuakeAdapter.ProgressLoader)) {
             val position = lists.size
             lists.removeAt(position - 1)
             earthQuakeAdapter.notifyItemRemoved(position - 1)

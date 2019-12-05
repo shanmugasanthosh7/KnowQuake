@@ -2,7 +2,6 @@ package com.sample.knowquake.ui.earthquakes
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.AdapterView
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
@@ -81,7 +80,7 @@ internal class EarthQuakeAdapter(val itemClickListener: OnItemClickListener) :
 
     override fun getItemViewType(position: Int) = when (featureProperties[position]) {
         is EqFeatures -> VIEW_TYPE_ITEM
-        is PROGRESSLOADER -> VIEW_TYPE_LOADING
+        is ProgressLoader -> VIEW_TYPE_LOADING
         else -> VIEW_TYPE_ITEM
     }
 
@@ -95,7 +94,7 @@ internal class EarthQuakeAdapter(val itemClickListener: OnItemClickListener) :
         this.featureProperties = newFeatureProperties
     }
 
-    object PROGRESSLOADER
+    object ProgressLoader
 
     inner class FeaturePropertiesViewHolder(private val binding: ItemEarthquakeBinding) :
         RecyclerView.ViewHolder(binding.root) {
@@ -134,7 +133,7 @@ internal class EarthQuakeAdapter(val itemClickListener: OnItemClickListener) :
             val newItem = newList[newItemPosition]
             return when {
                 oldItem is EqFeatures && newItem is EqFeatures -> oldItem.id == newItem.id
-                oldItem is PROGRESSLOADER && newItem is PROGRESSLOADER -> true
+                oldItem is ProgressLoader && newItem is ProgressLoader -> true
                 else -> false
             }
         }

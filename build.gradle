@@ -79,7 +79,7 @@ ext {
     junitVersion = '4.12'
 
     // Memory leak
-    leakcanary = '1.6.3' 
+    leakcanary = '1.6.3'        
 }
 
 

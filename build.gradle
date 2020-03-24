@@ -84,6 +84,7 @@ ext {
     leakcanary_no_op = '1.6.3'
     leakcanary_fragment_support = '1.6.3'
     leakcanary_no_op_testing_on_remote = '1.6.3'
+    leakcanary_support_testing = '1.6.3'
 }
 
 

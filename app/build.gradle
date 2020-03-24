@@ -53,10 +53,10 @@ android {
         targetCompatibility JavaVersion.VERSION_1_8
     }
 
-}
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
 
-kapt {
-    generateStubs = true
 }
 
 dependencies {
@@ -89,8 +89,8 @@ dependencies {
 
     // Find Memory Leaks - Only on Debug Build
     debugImplementation "com.squareup.leakcanary:leakcanary-android:${rootProject.ext.leakcanary}"
-    releaseImplementation "com.squareup.leakcanary:leakcanary-android-no-op:${rootProject.ext.leakcanary}"
-    debugImplementation "com.squareup.leakcanary:leakcanary-support-fragment:${rootProject.ext.leakcanary}"
+    releaseImplementation "com.squareup.leakcanary:leakcanary-android-no-op:${rootProject.ext.leakcanary_no_op}"
+    debugImplementation "com.squareup.leakcanary:leakcanary-support-fragment:${rootProject.ext.leakcanary_fragment_support}"
 
     // Interceptors for Logging request and response
     implementation "com.squareup.okhttp3:logging-interceptor:${rootProject.ext.okhttpVersion}"
@@ -109,7 +109,7 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-runtime:${rootProject.ext.lifecycle_version}"
     implementation "androidx.lifecycle:lifecycle-common-java8:${rootProject.ext.lifecycle_version}"
     implementation "androidx.lifecycle:lifecycle-reactivestreams:${rootProject.ext.lifecycle_rxstreams_version}"
-    testImplementation "androidx.arch.core:core-testing:${rootProject.ext.lifecycle_version}"
+    testImplementation "androidx.arch.core:core-testing:${rootProject.ext.lifecycle_core_testing}"
 
     // Kotlin + coroutines
     implementation "androidx.work:work-runtime-ktx:$work_version"

@@ -110,7 +110,7 @@ class EarthQuakeActivity : BaseActivity(), SwipeRefreshLayout.OnRefreshListener,
                         isNetworkLost = true
                     }
                     is HttpException -> { // Handle Http exception here
-                        when (it.response().code()) {
+                        when (it.response()?.code()) {
                             HttpURLConnection.HTTP_BAD_REQUEST -> {
                                 // Show UI Here
                                 Snackbar.make(binding.root, "Something went wrong.", Snackbar.LENGTH_LONG)

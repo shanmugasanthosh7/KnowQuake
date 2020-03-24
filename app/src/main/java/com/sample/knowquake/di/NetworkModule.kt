@@ -27,7 +27,7 @@ class NetworkModule {
             val original = chain.request()
             val requestBuilder = original.newBuilder()
             requestBuilder.header("Content-Type", "application/json")
-            requestBuilder.method(original.method(), original.body())
+            requestBuilder.method(original.method, original.body)
             chain.proceed(requestBuilder.build())
         }
         httpClient.addInterceptor(NetworkConnectionInterceptor(context))

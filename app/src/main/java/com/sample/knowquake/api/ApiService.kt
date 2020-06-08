@@ -2,8 +2,8 @@ package com.sample.knowquake.api
 
 import com.sample.knowquake.vo.EarthQuake
 import com.sample.knowquake.vo.FeatureProperties
-import io.reactivex.Observable
-import io.reactivex.Single
+import io.reactivex.rxjava3.core.Observable
+import io.reactivex.rxjava3.core.Single
 import retrofit2.http.GET
 import retrofit2.http.Query
 

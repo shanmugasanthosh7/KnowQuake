@@ -7,12 +7,13 @@ import android.os.Build
 import androidx.annotation.NonNull
 import androidx.core.app.NotificationCompat
 import androidx.work.*
+import androidx.work.rxjava3.RxWorker
 import com.sample.knowquake.R
 import com.sample.knowquake.api.ApiService
 import com.sample.knowquake.rx.SchedulerProvider
 import com.sample.knowquake.util.TimeUtils
-import io.reactivex.Scheduler
-import io.reactivex.Single
+import io.reactivex.rxjava3.core.Scheduler
+import io.reactivex.rxjava3.core.Single
 import javax.inject.Inject
 
 
@@ -56,7 +57,7 @@ class NewQuakeUpdateJob(
             .setContentTitle(task)
             .setContentText(desc)
             .setSmallIcon(R.mipmap.ic_launcher)
-        manager.notify(1, builder.build()) // Notificatio just replace existing one if you want to show each notification as new increment the id.
+        manager.notify(1, builder.build()) // Notification just replace existing one if you want to show each notification as new increment the id.
     }
 
     class Factory @Inject constructor(

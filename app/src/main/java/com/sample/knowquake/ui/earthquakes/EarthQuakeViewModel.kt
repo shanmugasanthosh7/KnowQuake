@@ -8,7 +8,7 @@ import com.sample.knowquake.provider.ResourceProvider
 import com.sample.knowquake.result.Event
 import com.sample.knowquake.rx.SchedulerProvider
 import com.sample.knowquake.vo.EarthQuake
-import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.rxjava3.disposables.CompositeDisposable
 import javax.inject.Inject
 
 class EarthQuakeViewModel
@@ -37,15 +37,14 @@ class EarthQuakeViewModel
     val isProgressShown: LiveData<Event<Boolean>> get() = _isProgressShown
 
     fun earthQuakeFeatures(limit: Int, offset: Int, isLoadMoreEnabled: Boolean) {
-        disposable.add(apiService.earthQuakeFeatures(limit = limit, offset = offset)
-            .subscribeOn(scheduler.executorIo())
-            .observeOn(scheduler.ui())
-            .subscribe(
-                { _earthQuake.value = it },
-                { _earthQuakeError.value = it },
-                { if (!isLoadMoreEnabled) _isProgressShown.value = Event(false) },
-                { if (!isLoadMoreEnabled) _isProgressShown.value = Event(true) }
-            )
+        disposable.add(
+            apiService.earthQuakeFeatures(limit = limit, offset = offset)
+                .subscribeOn(scheduler.executorIo())
+                .observeOn(scheduler.ui())
+                .doOnSubscribe { if (!isLoadMoreEnabled) _isProgressShown.value = Event(true) }
+                .subscribe({ _earthQuake.value = it },
+                    { _earthQuakeError.value = it },
+                    { if (!isLoadMoreEnabled) _isProgressShown.value = Event(false) })
         )
     }
 

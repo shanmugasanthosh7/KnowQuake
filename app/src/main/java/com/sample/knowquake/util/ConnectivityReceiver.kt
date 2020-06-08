@@ -1,10 +1,10 @@
 package com.sample.knowquake.util
 
+import android.annotation.SuppressLint
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
-import com.aptus.droidils.utils.isNetworkConneted
-import com.sample.knowquake.network.NetworkManager
+import com.aptus.droidils.utils.isNetworkConnected
 
 class ConnectivityReceiver : BroadcastReceiver() {
 
@@ -16,9 +16,10 @@ class ConnectivityReceiver : BroadcastReceiver() {
         fun onNetworkConnectionChanged(z: Boolean)
     }
 
+    @SuppressLint("UnsafeProtectedBroadcastReceiver")
     override fun onReceive(context: Context, intent: Intent) {
         if (connectivityReceiverListener != null) {
-            connectivityReceiverListener!!.onNetworkConnectionChanged(context.isNetworkConneted())
+            connectivityReceiverListener!!.onNetworkConnectionChanged(context.isNetworkConnected())
         }
     }
 }

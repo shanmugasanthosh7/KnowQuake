@@ -79,13 +79,12 @@ dependencies {
 
     // Retrofit
     implementation "com.squareup.retrofit2:retrofit:${rootProject.ext.retrofitVersion}"
-    implementation "com.squareup.retrofit2:converter-scalars:${rootProject.ext.retrofitVersion}"
     implementation "com.squareup.retrofit2:converter-gson:${rootProject.ext.retrofitVersion}"
-    implementation "com.squareup.retrofit2:adapter-rxjava2:${rootProject.ext.retrofitVersion}"
+    implementation "com.squareup.retrofit2:adapter-rxjava3:${rootProject.ext.retrofitVersion}"
 
     // RxJava 2
-    implementation "io.reactivex.rxjava2:rxandroid:${rootProject.ext.rxAndroid}"
-    implementation "io.reactivex.rxjava2:rxjava:${rootProject.ext.rxJavaVersion}"
+    implementation "io.reactivex.rxjava3:rxandroid:${rootProject.ext.rxAndroid}"
+    implementation "io.reactivex.rxjava3:rxjava:${rootProject.ext.rxJavaVersion}"
 
     // Find Memory Leaks - Only on Debug Build
     debugImplementation "com.squareup.leakcanary:leakcanary-android:${rootProject.ext.leakcanary}"
@@ -114,11 +113,11 @@ dependencies {
     // Kotlin + coroutines
     implementation "androidx.work:work-runtime-ktx:$work_version"
 
-    // optional - RxJava2 support
-    implementation "androidx.work:work-rxjava2:$work_version"
+    // optional - RxJava3 support
+    implementation 'androidx.work:work-rxjava3:2.4.0-beta01'
 
     // Utils
-    implementation 'com.aptus:droidils:1.1.0'
+    implementation 'com.aptus:droidils:1.2.0'
 
     // Instrumentation tests
     androidTestImplementation "androidx.test.espresso:espresso-core:${rootProject.ext.espressoVersion}"

@@ -3,16 +3,15 @@ package com.sample.knowquake.ui.earthquakedetails
 import android.os.Bundle
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.ViewModelProviders
 import com.sample.knowquake.R
 import com.sample.knowquake.databinding.ActivityEarthquakedeatilsBinding
 import com.sample.knowquake.vo.DataStore
 import dagger.android.support.DaggerAppCompatActivity
 import javax.inject.Inject
-import androidx.core.app.NavUtils
 import android.view.MenuItem
 import com.sample.knowquake.util.TimeUtils
 import com.sample.knowquake.util.provideViewModel
+import java.util.*
 import kotlin.math.roundToInt
 
 
@@ -47,10 +46,16 @@ class EarthQuakeDetailsActivity : DaggerAppCompatActivity() {
                     features.properties.time,
                     TimeUtils.DATE_TIME_FORMAT_2,
                     true
-                ), features.geometry.coordinates[features.geometry.coordinates.size - 1].toDouble().roundToInt()
+                ),
+                features.geometry.coordinates[features.geometry.coordinates.size - 1].toDouble()
+                    .roundToInt()
             ),
-            features.properties.status.toUpperCase(),
-            String.format("%s %s", features.properties.mag.toDouble().roundToInt(), features.properties.magType),
+            features.properties.status.toUpperCase(Locale.US),
+            String.format(
+                "%s %s",
+                features.properties.mag.toDouble().roundToInt(),
+                features.properties.magType
+            ),
             features.properties.type
         )
     }
